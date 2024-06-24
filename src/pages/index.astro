@@ -10,107 +10,153 @@ import Projects from "./Partials/Projects.astro";
 ---
 
 <Layout title="EvickaStudio">
-  <Header />
-  <main class="main-content" data-has-hero>
-    <Hero />
-    <section class="about">
-      <h2>About Me</h2>
-      <p>I'm a Computer Science and Software Engineering student based in Germany. I have a passion for learning new programming languages, exploring code design principles, and integrating various services and techniques into my projects. My personal projects often involve automation and user interface design. Additionally, I enjoy contributing to and using open-source projects.</p>
-    </section>
-    <Skills />
-    <Projects />
-    <Blog />
-    <ContactSection />
-  </main>
-  <Footer />
+    <Header />
+    <main class="main-content" data-has-hero>
+        <Hero />
+        <section class="about">
+            <h2>About Me</h2>
+            <p>
+                I'm a Computer Science and Software Engineering student based in
+                Germany. I have a passion for learning new programming
+                languages, exploring code design principles, and integrating
+                various services and techniques into my projects. My personal
+                projects often involve automation and user interface design.
+                Additionally, I enjoy contributing to and using open-source
+                projects.
+            </p>
+        </section>
+        <Skills />
+
+        <Projects />
+        <!-- <Blog /> -->
+        <!-- <ContactSection /> -->
+    </main>
+    <Footer />
 </Layout>
 
 <style>
-  :root {
-    --purple-hsl: 6, 93%, 71%; /* Updated to salmon pink */
-    --overlay-blurple: hsla(var(--purple-hsl), 0.2);
-    --salmon-pink: rgba(250, 128, 114, 0.6); /* Define salmon pink color */
-  }
+    :root {
+        --purple-hsl: 6, 93%, 71%; /* Updated to salmon pink */
+        --overlay-blurple: hsla(var(--purple-hsl), 0.2);
+        --salmon-pink: rgba(250, 128, 114, 0.6); /* Define salmon pink color */
+    }
 
-  :root[data-theme='light'] {
-    --purple-hsl: 6, 93%, 71%; /* Updated to salmon pink */
-  }
+    :root[data-theme="light"] {
+        --purple-hsl: 6, 93%, 71%; /* Updated to salmon pink */
+    }
 
-  body[data-has-hero] {
-    background:
-      linear-gradient(135deg, var(--overlay-blurple), transparent 30%),
-      radial-gradient(circle at 20% 50%, var(--overlay-blurple), transparent 50%) no-repeat -30vw -20vh / 80vw 160vh,
-      radial-gradient(circle at 80% 50%, var(--overlay-blurple), transparent 50%) no-repeat 30vw 20vh / 80vw 160vh;
-    filter: drop-shadow(0 0 20px var(--salmon-pink)); /* Add glow to the whole site */
-  }
+    body {
+        position: relative;
+        z-index: 0;
+    }
 
-  .main-content {
-    padding: 4rem;
-    max-width: 1200px;
-    margin: auto;
-  }
+    body::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background:
+            linear-gradient(135deg, var(--overlay-blurple), transparent 30%),
+            radial-gradient(
+                    circle at 20% 50%,
+                    var(--overlay-blurple),
+                    transparent 50%
+                )
+                no-repeat -30vw -20vh / 80vw 160vh,
+            radial-gradient(
+                    circle at 80% 50%,
+                    var(--overlay-blurple),
+                    transparent 50%
+                )
+                no-repeat 30vw 20vh / 80vw 160vh;
+        z-index: -1;
+    }
 
-  .intro, .about, .skills, .projects, .contact, .testimonials, .blog {
-    margin-bottom: 4rem; /* Increased from 2rem to 4rem */
-  }
+    .main-content {
+        padding: 8rem;
+        max-width: 1200px;
+        margin: auto;
+    }
 
-  .card-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-auto-rows: minmax(100px, auto);
-    gap: 20px;
-    padding: 0;
-    margin: 0;
-    width: 100%;
-  }
+    .intro,
+    .about,
+    .skills,
+    .projects,
+    .contact,
+    .testimonials,
+    .blog {
+        margin-bottom: 8rem; /* Increased from 2rem to 4rem */
+    }
 
-  .card-grid > *:nth-child(4n+1) {
-    grid-column: span 2;
-    grid-row: span 2;
-  }
+    .card-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-auto-rows: minmax(100px, auto);
+        gap: 20px;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+    }
 
-  .card-grid > *:nth-child(4n+4) {
-    grid-column: span 2;
-  }
+    .card-grid > *:nth-child(4n + 1) {
+        grid-column: span 2;
+        grid-row: span 2;
+    }
 
-  .card-grid > * {
-    min-height: 300px;
-  }
+    .card-grid > *:nth-child(4n + 4) {
+        grid-column: span 2;
+    }
 
-  .intro h1 {
-    font-size: 2.5rem;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 1rem;
-    animation: fadeIn 1s ease-in-out;
-  }
+    .card-grid > * {
+        min-height: 300px;
+    }
 
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+    .intro h1 {
+        font-size: 2.5rem;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 1rem;
+        animation: fadeIn 1s ease-in-out;
+    }
 
-  .intro p {
-    font-size: 1.25rem;
-    text-align: center;
-    margin-bottom: 2rem;
-  }
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
 
-  .about h2, .skills h2, .projects h2, .contact h2, .blog h2 {
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
-    animation: fadeIn 1s ease-in-out;
-  }
+    .intro p {
+        font-size: 1.25rem;
+        text-align: center;
+        margin-bottom: 2rem;
+    }
 
-  .projects h2 {
-    margin-bottom: 1.5rem;
-    position: relative;
-    z-index: 1;
-  }
+    .about h2,
+    .skills h2,
+    .projects h2,
+    .contact h2,
+    .blog h2 {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        animation: fadeIn 1s ease-in-out;
+    }
 
-  .card-grid {
-    position: relative;
-    z-index: 0;
-  }
+    .projects h2 {
+        margin-bottom: 1.5rem;
+        position: relative;
+        z-index: 1;
+    }
+
+    .card-grid {
+        position: relative;
+        z-index: 0;
+    }
 </style>
