@@ -11,12 +11,14 @@ const { title, body, imgSrc, badges, href } = Astro.props;
 ---
 
 <li class="link-card">
-  <a href={href}>
+  <div>
     <img src={imgSrc} alt={title} />
     <div>
       <h2>
-        {title}
-        <span>&rarr;</span>
+        <a href={href} target="_blank" rel="noopener noreferrer">
+          {title}
+          <span>&rarr;</span>
+        </a>
       </h2>
       <p>
         {body}
@@ -25,7 +27,7 @@ const { title, body, imgSrc, badges, href } = Astro.props;
         {badges.map((badge) => <span class="badge">{badge}</span>)}
       </div>
     </div>
-  </a>
+  </div>
 </li>
 <style>
   .link-card {
@@ -46,10 +48,8 @@ const { title, body, imgSrc, badges, href } = Astro.props;
       background-color 0.3s ease;
   }
 
-  .link-card > a {
+  .link-card > div {
     flex: 1;
-    text-decoration: none;
-    color: white; /* Fixed text color */
     display: flex;
     flex-direction: column;
     padding: 1rem;
@@ -65,6 +65,11 @@ const { title, body, imgSrc, badges, href } = Astro.props;
   .link-card h2 {
     margin: 0;
     font-size: 1.25rem;
+  }
+
+  .link-card h2 a {
+    text-decoration: none;
+    color: white; /* Fixed text color */
   }
 
   .link-card p {
@@ -121,9 +126,54 @@ const { title, body, imgSrc, badges, href } = Astro.props;
       0.9
     ); /* Fixed background color on hover */
   }
-  .link-card:is(:hover, :focus-within) h2 {
+  .link-card:is(:hover, :focus-within) h2 a {
     color: rgb(
       var(--accent-light)
     ); /* This can remain theme-dependent if desired */
   }
+
+  .link-card {
+    cursor: grab;
+    transition: transform 0.3s ease;
+  }
+
+  .link-card.dragging {
+    cursor: grabbing;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    transform: scale(1.05);
+    transition: transform 0.2s ease-out;
+  }
 </style>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const cards = document.querySelectorAll('.link-card');
+
+    cards.forEach(card => {
+      let isDragging = false;
+      let startX;
+      let currentX;
+
+      card.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        startX = e.clientX;
+        card.style.transition = 'none';
+        card.classList.add('dragging');
+      });
+
+      document.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        currentX = e.clientX;
+        const diffX = currentX - startX;
+        card.style.transform = `translateX(${diffX}px)`;
+      });
+
+      document.addEventListener('mouseup', () => {
+        if (!isDragging) return;
+        isDragging = false;
+        card.style.transition = 'transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)';
+        card.style.transform = 'translateX(0)';
+        card.classList.remove('dragging');
+      });
+    });
+  });
+</script>
