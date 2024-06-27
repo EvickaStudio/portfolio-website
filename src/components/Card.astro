@@ -33,14 +33,17 @@ const { title, body, imgSrc, badges, href } = Astro.props;
     display: flex;
     flex-direction: column;
     padding: 1px;
-:root {
-    --card-background-color: #23262d;
-}
+    :root {
+      --card-background-color: #23262d;
+    }
 
-background-color: var(--card-background-color); /* Fixed background color */
+    background-color: var(--card-background-color); /* Fixed background color */
     border-radius: 16px;
     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease,
+      background-color 0.3s ease;
   }
 
   .link-card > a {
@@ -109,11 +112,18 @@ background-color: var(--card-background-color); /* Fixed background color */
     margin-bottom: 0;
   }
   .link-card:is(:hover, :focus-within) {
-    transform: translateY(-10px);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    background-color: rgba(35, 38, 45, 0.9); /* Fixed background color on hover */
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    background-color: rgba(
+      35,
+      38,
+      45,
+      0.9
+    ); /* Fixed background color on hover */
   }
   .link-card:is(:hover, :focus-within) h2 {
-    color: rgb(var(--accent-light)); /* This can remain theme-dependent if desired */
+    color: rgb(
+      var(--accent-light)
+    ); /* This can remain theme-dependent if desired */
   }
 </style>

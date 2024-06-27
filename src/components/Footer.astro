@@ -1,7 +1,7 @@
 ---
 ---
 <footer class="footer">
-  <p>&copy; 2024 EvickaStudio. All rights reserved.</p>
+  <p id="random-quote"></p>
   <div class="social-links">
     <a href="https://github.com/EvickaStudio">GitHub</a>
     <!-- <a href="https://linkedin.com/in/x">LinkedIn</a> -->
@@ -22,3 +22,14 @@
     text-decoration: none;
   }
 </style>
+
+<script>
+    const quotes = [
+        "The best way to predict the future is to invent it.",
+        "Code is like humor. When you have to explain it, it's bad.",
+        "Simplicity is the soul of efficiency.",
+        "Fix the cause, not the symptom."
+    ];
+    const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+    document.getElementById('random-quote').innerText = randomQuote;
+</script>

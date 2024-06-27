@@ -20,7 +20,7 @@ import Layout from "../layouts/Layout.astro";
       </div>
     </div>
   </div>
-  <div class="relative">
+  <div class="relative hero-animation">
     <img src="https://cdn.evickastudio.de/static/media/render_nosmoke.webp" alt="Render Image" class="w-full h-auto hover-animation pink-blue-glow" />
   </div>
 </div>
@@ -30,11 +30,21 @@ import Layout from "../layouts/Layout.astro";
     filter: drop-shadow(0 0 20px rgba(255, 20, 147, 0.6)), drop-shadow(0 0 40px rgba(0, 0, 255, 0.6)); /* Pink and blue radial glow */
   }
 
-  .hover-animation:hover {
-    animation: hover 3s infinite ease-in-out;
-  }
 
   @keyframes hover {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .hero-animation {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
     0%, 100% {
       transform: translateY(0);
     }
