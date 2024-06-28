@@ -8,19 +8,18 @@ import Layout from "../layouts/Layout.astro";
          style="background: radial-gradient(50% 50% at 50% 50%, var(--background-light) 0%, rgba(var(--background-light), 0.9) 95%, rgba(var(--background-light), 0) 110%);">
     </div>
     <div class="isolate">
-      <!-- <img src="https://cdn.evickastudio.de/static%2Fmedia%2Flogo.svg" alt="EvickaStudio Logo" class="h-10 sm:h-12 w-auto ml-4"/> -->
       <div class="px-3">
         <h1 class="text-3xl sm:text-5xl max-w-lg font-display pt-7 sm:pb-4 pb-2 leading-[110%]">
           Welcome to EvickaStudio
         </h1>
         <p class="text-base sm:text-xl max-w-md text-gray-700" style="color: #7b8187;">Explore my projects and learn more about my work.</p>
         <div class="pt-7 sm:flex sm:space-x-6 space-y-3 sm:space-y-0">
-          <a href="https://github.com/EvickaStudio" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">Learn More</a>
+          <a href="https://github.com/EvickaStudio" class="bg-salmon-pink hover:bg-salmon-pink-dark text-white font-bold py-2 px-4 rounded">Learn More</a>
         </div>
       </div>
     </div>
   </div>
-  <div class="relative">
+  <div class="relative hero-animation">
     <img src="https://cdn.evickastudio.de/static/media/render_nosmoke.webp" alt="Render Image" class="w-full h-auto hover-animation pink-blue-glow" />
   </div>
 </div>
@@ -30,9 +29,6 @@ import Layout from "../layouts/Layout.astro";
     filter: drop-shadow(0 0 20px rgba(255, 20, 147, 0.6)), drop-shadow(0 0 40px rgba(0, 0, 255, 0.6)); /* Pink and blue radial glow */
   }
 
-  .hover-animation:hover {
-    animation: hover 3s infinite ease-in-out;
-  }
 
   @keyframes hover {
     0%, 100% {
@@ -41,5 +37,26 @@ import Layout from "../layouts/Layout.astro";
     50% {
       transform: translateY(-10px);
     }
+  }
+
+  .hero-animation {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .bg-salmon-pink {
+    background-color: rgba(250, 128, 114, 0.6);
+  }
+
+  .hover\:bg-salmon-pink-dark:hover {
+    background-color: rgba(250, 128, 114, 0.8);
   }
 </style>

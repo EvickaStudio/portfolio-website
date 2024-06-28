@@ -11,12 +11,14 @@ const { title, body, imgSrc, badges, href } = Astro.props;
 ---
 
 <li class="link-card">
-  <a href={href}>
+  <div>
     <img src={imgSrc} alt={title} />
     <div>
       <h2>
-        {title}
-        <span>&rarr;</span>
+        <a href={href} target="_blank" rel="noopener noreferrer">
+          {title}
+          <span>&rarr;</span>
+        </a>
       </h2>
       <p>
         {body}
@@ -25,7 +27,7 @@ const { title, body, imgSrc, badges, href } = Astro.props;
         {badges.map((badge) => <span class="badge">{badge}</span>)}
       </div>
     </div>
-  </a>
+  </div>
 </li>
 <style>
   .link-card {
@@ -33,20 +35,21 @@ const { title, body, imgSrc, badges, href } = Astro.props;
     display: flex;
     flex-direction: column;
     padding: 1px;
-:root {
-    --card-background-color: #23262d;
-}
+    :root {
+      --card-background-color: #23262d;
+    }
 
-background-color: var(--card-background-color); /* Fixed background color */
+    background-color: var(--card-background-color); /* Fixed background color */
     border-radius: 16px;
     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease,
+      background-color 0.3s ease;
   }
 
-  .link-card > a {
+  .link-card > div {
     flex: 1;
-    text-decoration: none;
-    color: white; /* Fixed text color */
     display: flex;
     flex-direction: column;
     padding: 1rem;
@@ -62,6 +65,11 @@ background-color: var(--card-background-color); /* Fixed background color */
   .link-card h2 {
     margin: 0;
     font-size: 1.25rem;
+  }
+
+  .link-card h2 a {
+    text-decoration: none;
+    color: white; /* Fixed text color */
   }
 
   .link-card p {
@@ -109,11 +117,64 @@ background-color: var(--card-background-color); /* Fixed background color */
     margin-bottom: 0;
   }
   .link-card:is(:hover, :focus-within) {
-    transform: translateY(-10px);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    background-color: rgba(35, 38, 45, 0.9); /* Fixed background color on hover */
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    background-color: rgba(
+      35,
+      38,
+      45,
+      0.9
+    ); /* Fixed background color on hover */
   }
-  .link-card:is(:hover, :focus-within) h2 {
-    color: rgb(var(--accent-light)); /* This can remain theme-dependent if desired */
+  .link-card:is(:hover, :focus-within) h2 a {
+    color: rgb(
+      var(--accent-light)
+    ); /* This can remain theme-dependent if desired */
+  }
+
+  .link-card {
+    cursor: grab;
+    transition: transform 0.3s ease;
+  }
+
+  .link-card.dragging {
+    cursor: grabbing;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    transform: scale(1.05);
+    transition: transform 0.2s ease-out;
   }
 </style>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const cards = document.querySelectorAll('.link-card');
+
+    cards.forEach(card => {
+      let isDragging = false;
+      let startX: number;
+
+      const cardElement = card as HTMLElement;
+
+      cardElement.addEventListener('mousedown', (e: MouseEvent) => {
+        isDragging = true;
+        startX = e.clientX;
+        cardElement.style.transition = 'none';
+        cardElement.classList.add('dragging');
+      });
+
+      document.addEventListener('mousemove', (e: MouseEvent) => {
+        if (!isDragging) return;
+        const currentX = e.clientX;
+        const diffX = currentX - startX;
+        cardElement.style.transform = `translateX(${diffX}px)`;
+      });
+
+      document.addEventListener('mouseup', () => {
+        if (!isDragging) return;
+        isDragging = false;
+        cardElement.style.transition = 'transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)';
+        cardElement.style.transform = 'translateX(0)';
+        cardElement.classList.remove('dragging');
+      });
+    });
+  });
+</script>

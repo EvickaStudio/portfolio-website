@@ -2,8 +2,8 @@
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import Blog from "./Partials/Blog.astro";
-import ContactSection from "./Partials/ContactSection.astro";
+// import Blog from "./Partials/Blog.astro";
+// import ContactSection from "./Partials/ContactSection.astro";
 import Skills from "./Partials/Skills.astro";
 import Hero from "./Hero.astro";
 import Projects from "./Partials/Projects.astro";
@@ -13,7 +13,7 @@ import Projects from "./Partials/Projects.astro";
     <Header />
     <main class="main-content" data-has-hero>
         <Hero />
-        <section class="about">
+        <section class="about animate-on-scroll">
             <h2>About Me</h2>
             <p>
                 I'm a Computer Science and Software Engineering student based in
@@ -26,7 +26,6 @@ import Projects from "./Partials/Projects.astro";
             </p>
         </section>
         <Skills />
-
         <Projects />
         <!-- <Blog /> -->
         <!-- <ContactSection /> -->
@@ -159,4 +158,122 @@ import Projects from "./Partials/Projects.astro";
         position: relative;
         z-index: 0;
     }
+
+    button:hover, a:hover {
+        transform: scale(1.05);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    button:active, a:active {
+        animation: bounce 0.3s;
+    }
+
+    @keyframes bounce {
+        0%, 100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-5px);
+        }
+    }
+
+    .konami-animation {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        width: 100px;
+        height: 100px;
+        background: url('/path/to/easter-egg-image.png') no-repeat center center;
+        background-size: contain;
+        transform: translate(-50%, -50%);
+        animation: spin 2s linear infinite;
+        display: none;
+    }
+
+    body.konami .konami-animation {
+        display: block;
+    }
+
+    @keyframes spin {
+        from {
+            transform: translate(-50%, -50%) rotate(0deg);
+        }
+        to {
+            transform: translate(-50%, -50%) rotate(360deg);
+        }
+    }
+
+    .animate-on-scroll {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .animate-on-scroll.animated {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .card-hover:hover {
+        background-color: var(--salmon-pink);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        transform: translateY(-10px) scale(1.05);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* Custom scrollbar styles */
+    ::-webkit-scrollbar {
+        width: 12px; /* Width of the scrollbar */
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1; /* Background of the scrollbar track */
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: var(--salmon-pink); /* Color of the scrollbar thumb */
+        border-radius: 6px; /* Rounded corners for the scrollbar thumb */
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: var(--purple-hsl); /* Color of the scrollbar thumb on hover */
+    }
 </style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const konamiCode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
+        let konamiIndex = 0;
+
+        document.addEventListener('keydown', (event) => {
+            if (event.keyCode === konamiCode[konamiIndex]) {	
+                konamiIndex++;
+                if (konamiIndex === konamiCode.length) {
+                    document.body.classList.add('konami');
+                    alert('Konami Code Activated!');
+                    konamiIndex = 0;
+                }
+            } else {
+                konamiIndex = 0;
+            }
+        });
+        
+        // Easter egg animation
+        const konamiAnimation = document.createElement('div');
+        konamiAnimation.className = 'konami-animation';
+        document.body.appendChild(konamiAnimation);
+
+        const elements = document.querySelectorAll('.animate-on-scroll');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                }
+            });
+        });
+
+        elements.forEach(element => {
+            observer.observe(element);
+        });
+    });
+</script>
