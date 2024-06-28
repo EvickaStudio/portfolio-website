@@ -30,6 +30,14 @@ const { title } = Astro.props;
 		--background-dark: #13151a;
 		--text-light: #000000;
 		--text-dark: #ffffff;
+		--card-background-color-light: #f9f9f9;
+		--card-background-color-dark: #23262d;
+		--card-hover-background-color-light: rgba(249, 249, 249, 0.9);
+		--card-hover-background-color-dark: rgba(35, 38, 45, 0.9);
+		--badge-background-color-light: #e0e0e0;
+		--badge-background-color-dark: #23262d;
+		--badge-text-color-light: #000000;
+		--badge-text-color-dark: #ffffff;
 	}
 	html {
 		font-family: system-ui, sans-serif;
@@ -58,11 +66,21 @@ const { title } = Astro.props;
 	[data-theme="light"] {
 		background: var(--background-light);
 		color: var(--text-light);
+		--card-background-color: var(--card-background-color-light);
+		--card-hover-background-color: var(--card-hover-background-color-light);
+		--badge-background-color: var(--badge-background-color-light);
+		--badge-text-color: var(--badge-text-color-light);
+		--text-color: var(--text-light);
 	}
 
 	[data-theme="dark"] {
 		background: var(--background-dark);
 		color: var(--text-dark);
+		--card-background-color: var(--card-background-color-dark);
+		--card-hover-background-color: var(--card-hover-background-color-dark);
+		--badge-background-color: var(--badge-background-color-dark);
+		--badge-text-color: var(--badge-text-color-dark);
+		--text-color: var(--text-dark);
 	}
 </style>
 

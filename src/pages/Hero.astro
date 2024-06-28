@@ -29,6 +29,9 @@ import Layout from "../layouts/Layout.astro";
     filter: drop-shadow(0 0 20px rgba(255, 20, 147, 0.6)), drop-shadow(0 0 40px rgba(0, 0, 255, 0.6)); /* Pink and blue radial glow */
   }
 
+  :root[data-theme="light"] .pink-blue-glow {
+    filter: drop-shadow(0 0 20px rgba(200, 20, 147, 0.6)), drop-shadow(0 0 40px rgba(0, 0, 200, 0.6)); /* Darker pink and blue radial glow */
+  }
 
   @keyframes hover {
     0%, 100% {
@@ -60,3 +63,4 @@ import Layout from "../layouts/Layout.astro";
     background-color: rgba(250, 128, 114, 0.8);
   }
 </style>
+

@@ -36,4 +36,15 @@ const { skill } = Astro.props;
     text-align: center;
     font-size: 1.25rem;
   }
+
+  /* Light theme styles */
+  :root[data-theme="light"] .skill-card {
+    background: #f0f0f0;
+    color: #000;
+  }
+
+  :root[data-theme="light"] .skill-card:hover {
+    background-color: #e0e0e0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
 </style>

@@ -38,10 +38,24 @@ import Projects from "./Partials/Projects.astro";
         --purple-hsl: 6, 93%, 71%; /* Updated to salmon pink */
         --overlay-blurple: hsla(var(--purple-hsl), 0.2);
         --salmon-pink: rgba(250, 128, 114, 0.6); /* Define salmon pink color */
+        --salmon-pink-dark: rgba(
+            250,
+            128,
+            114,
+            0.8
+        ); /* Define darker salmon pink color */
     }
 
     :root[data-theme="light"] {
         --purple-hsl: 6, 93%, 71%; /* Updated to salmon pink */
+        --overlay-blurple: hsla(var(--purple-hsl), 0.2);
+        --salmon-pink: rgba(236, 121, 98, 0.6); /* Darker salmon pink color for light mode */
+        --salmon-pink-dark: rgba(
+            200,
+            128,
+            114,
+            0.8
+        ); /* Define darker salmon pink color for light mode */
     }
 
     body {
@@ -159,17 +173,23 @@ import Projects from "./Partials/Projects.astro";
         z-index: 0;
     }
 
-    button:hover, a:hover {
+    button:hover,
+    a:hover {
         transform: scale(1.05);
-        transition: transform 0.3s ease-in-out;
+        transition:
+            transform 0.3s ease-in-out,
+            background-color 0.3s ease-in-out;
+        background-color: var(--salmon-pink-dark);
     }
 
-    button:active, a:active {
+    button:active,
+    a:active {
         animation: bounce 0.3s;
     }
 
     @keyframes bounce {
-        0%, 100% {
+        0%,
+        100% {
             transform: translateY(0);
         }
         50% {
@@ -183,7 +203,7 @@ import Projects from "./Partials/Projects.astro";
         left: 50%;
         width: 100px;
         height: 100px;
-        background: url('/path/to/easter-egg-image.png') no-repeat center center;
+        background: url("/path/to/easter-egg-image.png") no-repeat center center;
         background-size: contain;
         transform: translate(-50%, -50%);
         animation: spin 2s linear infinite;
@@ -206,7 +226,9 @@ import Projects from "./Partials/Projects.astro";
     .animate-on-scroll {
         opacity: 0;
         transform: translateY(20px);
-        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        transition:
+            opacity 0.6s ease-out,
+            transform 0.6s ease-out;
     }
 
     .animate-on-scroll.animated {
@@ -218,7 +240,9 @@ import Projects from "./Partials/Projects.astro";
         background-color: var(--salmon-pink);
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
         transform: translateY(-10px) scale(1.05);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        transition:
+            transform 0.3s ease,
+            box-shadow 0.3s ease;
     }
 
     /* Custom scrollbar styles */
@@ -236,44 +260,62 @@ import Projects from "./Partials/Projects.astro";
     }
 
     ::-webkit-scrollbar-thumb:hover {
-        background: var(--purple-hsl); /* Color of the scrollbar thumb on hover */
+        background: var(
+            --purple-hsl
+        ); /* Color of the scrollbar thumb on hover */
     }
 </style>
 
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener("DOMContentLoaded", () => {
         const konamiCode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
         let konamiIndex = 0;
 
-        document.addEventListener('keydown', (event) => {
-            if (event.keyCode === konamiCode[konamiIndex]) {	
+        document.addEventListener("keydown", (event) => {
+            if (event.keyCode === konamiCode[konamiIndex]) {
                 konamiIndex++;
                 if (konamiIndex === konamiCode.length) {
-                    document.body.classList.add('konami');
-                    alert('Konami Code Activated!');
+                    document.body.classList.add("konami");
+                    alert("Konami Code Activated!");
                     konamiIndex = 0;
                 }
             } else {
                 konamiIndex = 0;
             }
         });
-        
+
         // Easter egg animation
-        const konamiAnimation = document.createElement('div');
-        konamiAnimation.className = 'konami-animation';
+        const konamiAnimation = document.createElement("div");
+        konamiAnimation.className = "konami-animation";
         document.body.appendChild(konamiAnimation);
 
-        const elements = document.querySelectorAll('.animate-on-scroll');
+        const elements = document.querySelectorAll(".animate-on-scroll");
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
+            entries.forEach((entry) => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('animated');
+                    entry.target.classList.add("animated");
                 }
             });
         });
 
-        elements.forEach(element => {
+        elements.forEach((element) => {
+            observer.observe(element);
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const elements = document.querySelectorAll(".animate-on-scroll");
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("animated");
+                }
+            });
+        });
+
+        elements.forEach((element) => {
             observer.observe(element);
         });
     });
 </script>
+

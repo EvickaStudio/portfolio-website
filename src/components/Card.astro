@@ -35,17 +35,10 @@ const { title, body, imgSrc, badges, href } = Astro.props;
     display: flex;
     flex-direction: column;
     padding: 1px;
-    :root {
-      --card-background-color: #23262d;
-    }
-
-    background-color: var(--card-background-color); /* Fixed background color */
+    background-color: var(--card-background-color);
     border-radius: 16px;
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
-    transition:
-      transform 0.3s ease,
-      box-shadow 0.3s ease,
-      background-color 0.3s ease;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
   }
 
   .link-card > div {
@@ -69,7 +62,7 @@ const { title, body, imgSrc, badges, href } = Astro.props;
 
   .link-card h2 a {
     text-decoration: none;
-    color: white; /* Fixed text color */
+    color: var(--text-color);
   }
 
   .link-card p {
@@ -78,58 +71,43 @@ const { title, body, imgSrc, badges, href } = Astro.props;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 3; /* Limit to 3 lines */
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
   }
 
   .badges {
     display: flex;
-    flex-wrap: wrap; /* Allow badges to wrap */
+    flex-wrap: wrap;
     gap: 0.5rem;
     margin-top: 1rem;
   }
 
   .badge {
-    background-color: #23262d;
-    color: white;
+    background-color: var(--badge-background-color);
+    color: var(--badge-text-color);
     padding: 0.25rem 0.5rem;
     border-radius: 12px;
-    border: 1.9px solid rgba(255, 255, 255, 0.1);
-    font-size: 0.75rem; /* reduces the font size of the badges */
-    max-width: 100%; /* ensures the badges don't overflow the card */
-    white-space: nowrap; /* prevents the badges from breaking onto multiple lines */
-    overflow: hidden; /* hides any overflow */
-    text-overflow: ellipsis; /* adds an ellipsis (...) if the badge text overflows */
-    transition: transform 0.3s ease; /* Add transition for transform */
+    border: 1.9px solid rgba(0, 0, 0, 0.1);
+    font-size: 0.75rem;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: transform 0.3s ease;
   }
 
   .badge:hover {
-    transform: scale(1.1); /* Scale up badge on hover */
+    transform: scale(1.1);
   }
 
-  h2 {
-    margin: 0;
-    font-size: 1.25rem;
-    transition: color 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  p {
-    margin-top: 0.5rem;
-    margin-bottom: 0;
-  }
   .link-card:is(:hover, :focus-within) {
-    transform: translateY(-10px) scale(1.05);
+    transform: translateY(-10px) scale(1.05) rotate(1deg);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    background-color: rgba(
-      35,
-      38,
-      45,
-      0.9
-    ); /* Fixed background color on hover */
+    background-color: var(--card-hover-background-color);
   }
+
   .link-card:is(:hover, :focus-within) h2 a {
-    color: rgb(
-      var(--accent-light)
-    ); /* This can remain theme-dependent if desired */
+    color: var(--accent-light);
   }
 
   .link-card {
@@ -178,3 +156,4 @@ const { title, body, imgSrc, badges, href } = Astro.props;
     });
   });
 </script>
+
