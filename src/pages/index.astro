@@ -2,8 +2,8 @@
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import Blog from "./Partials/Blog.astro";
-import ContactSection from "./Partials/ContactSection.astro";
+// import Blog from "./Partials/Blog.astro";
+// import ContactSection from "./Partials/ContactSection.astro";
 import Skills from "./Partials/Skills.astro";
 import Hero from "./Hero.astro";
 import Projects from "./Partials/Projects.astro";
@@ -246,7 +246,7 @@ import Projects from "./Partials/Projects.astro";
         let konamiIndex = 0;
 
         document.addEventListener('keydown', (event) => {
-            if (event.keyCode === konamiCode[konamiIndex]) {
+            if (event.keyCode === konamiCode[konamiIndex]) {	
                 konamiIndex++;
                 if (konamiIndex === konamiCode.length) {
                     document.body.classList.add('konami');

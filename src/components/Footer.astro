@@ -31,5 +31,8 @@
         "Fix the cause, not the symptom."
     ];
     const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-    document.getElementById('random-quote').innerText = randomQuote;
+    const quoteElement = document.getElementById('random-quote');
+    if (quoteElement) {
+        quoteElement.innerText = randomQuote;
+    }
 </script>

@@ -150,29 +150,30 @@ const { title, body, imgSrc, badges, href } = Astro.props;
 
     cards.forEach(card => {
       let isDragging = false;
-      let startX;
-      let currentX;
+      let startX: number;
 
-      card.addEventListener('mousedown', (e) => {
+      const cardElement = card as HTMLElement;
+
+      cardElement.addEventListener('mousedown', (e: MouseEvent) => {
         isDragging = true;
         startX = e.clientX;
-        card.style.transition = 'none';
-        card.classList.add('dragging');
+        cardElement.style.transition = 'none';
+        cardElement.classList.add('dragging');
       });
 
-      document.addEventListener('mousemove', (e) => {
+      document.addEventListener('mousemove', (e: MouseEvent) => {
         if (!isDragging) return;
-        currentX = e.clientX;
+        const currentX = e.clientX;
         const diffX = currentX - startX;
-        card.style.transform = `translateX(${diffX}px)`;
+        cardElement.style.transform = `translateX(${diffX}px)`;
       });
 
       document.addEventListener('mouseup', () => {
         if (!isDragging) return;
         isDragging = false;
-        card.style.transition = 'transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)';
-        card.style.transform = 'translateX(0)';
-        card.classList.remove('dragging');
+        cardElement.style.transition = 'transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)';
+        cardElement.style.transform = 'translateX(0)';
+        cardElement.classList.remove('dragging');
       });
     });
   });
